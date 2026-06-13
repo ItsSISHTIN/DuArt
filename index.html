@@ -104,11 +104,17 @@
 
     <script src="js/gateway.js" defer></script>
     <script>
-      window.addEventListener("load", function () {
-        setTimeout(function () {
-          document.getElementById("loadingScreen").classList.add("hidden");
-        }, 2500);
-      });
+      (function () {
+        var ls = document.getElementById("loadingScreen");
+        function hide() { ls.classList.add("hidden"); }
+        var btn = document.getElementById("btnDev");
+        if (btn.classList.contains("built")) { hide(); return; }
+        var obs = new MutationObserver(function () {
+          if (btn.classList.contains("built")) { hide(); obs.disconnect(); }
+        });
+        obs.observe(btn, { attributes: true, attributeFilter: ["class"] });
+        setTimeout(function () { obs.disconnect(); hide(); }, 15000);
+      })();
     </script>
   </body>
 </html>
