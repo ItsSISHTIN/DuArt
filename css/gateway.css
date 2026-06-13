@@ -1,4 +1,74 @@
 /* ============================================
+   LOADING SCREEN (mobile only)
+   ============================================ */
+
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-content {
+    text-align: center;
+    color: #fff;
+}
+
+.loading-logo {
+    font-size: 2rem;
+    font-weight: 700;
+    display: block;
+}
+
+.loading-sub {
+    font-size: 1rem;
+    opacity: 0.5;
+    display: block;
+    margin-top: 0.3rem;
+}
+
+.loading-bar {
+    width: 120px;
+    height: 2px;
+    background: rgba(255,255,255,0.1);
+    margin: 1.5rem auto 0;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loading-bar::after {
+    content: '';
+    position: absolute;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 2px;
+    animation: loadingSlide 1.5s ease forwards;
+}
+
+@keyframes loadingSlide {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+@media (min-width: 769px) {
+    .loading-screen {
+        display: none !important;
+    }
+}
+
+/* ============================================
    GATEWAY CSS - Black & White Dual World
    V1.0 - Full Background Images
    ============================================ */
@@ -274,6 +344,7 @@ body {
 .logo-left {
     object-position: right center;
     height: 125px;
+    transform: translate(-10px, 10px);
 }
 
 .logo-right {
@@ -288,16 +359,10 @@ body {
 
 @media (max-width: 768px) {
     .gateway-logo {
-        flex-direction: column;
-        gap: 0;
+        display: none;
     }
-    .logo-left {
-        height: 60px;
-        transform: translateY(20%) translateX(10px);
-    }
-    .logo-right {
-        height: 75px;
-        transform: translateY(40%) translateX(10px);
+    .gateway .particle-canvas {
+        display: none;
     }
 }
 
